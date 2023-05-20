@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:test_application/service/color_service.dart';
 
 class TestPage extends StatefulWidget {
@@ -10,11 +11,14 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  int _counter = 0;
+
   ColorService colorService = ColorService();
 
   void _changeBackgroundColor() {
     setState(() {
       colorService.backgroundColor = colorService.generateRandomColor();
+      _counter++;
     });
   }
 
@@ -24,10 +28,20 @@ class _TestPageState extends State<TestPage> {
       onTap: _changeBackgroundColor,
       child: Scaffold(
         backgroundColor: colorService.backgroundColor,
-        body: const Center(
-          child: Text(
-            'Hello there',
-            style: TextStyle(fontSize: 24),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Hello there',
+                style: TextStyle(fontSize: 24),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Bonus point: $_counter',
+                style: const TextStyle(fontSize: 18),
+              ),
+            ],
           ),
         ),
       ),
